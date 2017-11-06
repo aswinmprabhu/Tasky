@@ -27,9 +27,9 @@ function addItemTodo(text) {
 
   list.appendChild(item);
 }
-function addClick(){
-   var value=document.getElementById('item').value;
-   if (value) {addItemTodo(value)};
- }
 
-document.getElementById('add').onclick=addClick();
+document.getElementById('add').onclick= function (){
+   var value=document.getElementById('item').value;
+   console.log(value);
+   if (value) {addItemTodo(value)};
+ };
