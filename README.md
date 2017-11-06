@@ -1,1 +1,3 @@
-# New_HTML_Project
+# Tasky
+
+A simple task manager app
