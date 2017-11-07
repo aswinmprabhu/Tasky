@@ -16,10 +16,24 @@ function addItemTodo(text) {
   var remove=document.createElement('button');
   remove.classList.add('remove');
   remove.innerHTML=removeSVG;
+  remove.onclick=function(){
+    var completedList = document.getElementById('completed');
+    if(this.parentNode.parentNode.parentNode.id=='completed'){
+      completedList.removeChild(item);
+    }
+    else{
+      list.removeChild(item);
+    }
+  }
 
   var complete=document.createElement('button');
-  remove.classList.add('complete');
+  complete.classList.add('complete');
   complete.innerHTML=completeSVG;
+  complete.onclick=function(){
+    var completedList = document.getElementById('completed');
+    list.removeChild(item);
+    completedList.appendChild(item);
+  }
 
   buttons.appendChild(remove);
   buttons.appendChild(complete);
@@ -31,5 +45,8 @@ function addItemTodo(text) {
 document.getElementById('add').onclick= function (){
    var value=document.getElementById('item').value;
    console.log(value);
-   if (value) {addItemTodo(value)};
- };
+   if (value) {
+     addItemTodo(value);
+     document.getElementById('item').value='';
+   }
+ }
