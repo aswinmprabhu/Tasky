@@ -2,10 +2,32 @@ var removeSVG = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xli
 var completeSVG = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22 22" style="enable-background:new 0 0 22 22;" xml:space="preserve"><rect y="0" class="noFill" width="22" height="22"/><g><path class="fill" d="M9.7,14.4L9.7,14.4c-0.2,0-0.4-0.1-0.5-0.2l-2.7-2.7c-0.3-0.3-0.3-0.8,0-1.1s0.8-0.3,1.1,0l2.1,2.1l4.8-4.8c0.3-0.3,0.8-0.3,1.1,0s0.3,0.8,0,1.1l-5.3,5.3C10.1,14.3,9.9,14.4,9.7,14.4z"/></g></svg>';
 
 
+var data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')):{
+  todo: [],
+  completed: []
+};
+console.log(data);
+renderTodoList();
+function renderTodoList() {
+  if (!data.todo.length && !data.completed.length) return;
 
+  for (var i = 0; i < data.todo.length; i++) {
+    var value = data.todo[i];
+    addItemTodo(value, 1);
+  }
 
-function addItemTodo(text) {
-  var list = document.getElementById('todo');
+  for (var j = 0; j < data.completed.length; j++) {
+    var value = data.completed[j];
+    addItemTodo(value, 0);
+  }
+}
+
+function dataObjectUpdated(){
+  localStorage.setItem('todoList', JSON.stringify(data));
+}
+
+function addItemTodo(text, completed=1) {
+  var list = completed ? document.getElementById('todo') : document.getElementById('completed');
 
   var item=document.createElement('li');
   item.innerText=text;
@@ -17,22 +39,34 @@ function addItemTodo(text) {
   remove.classList.add('remove');
   remove.innerHTML=removeSVG;
   remove.onclick=function(){
+    var value = item.innerText;
     var completedList = document.getElementById('completed');
     if(this.parentNode.parentNode.parentNode.id=='completed'){
       completedList.removeChild(item);
+      data.completed.splice(data.completed.indexOf(value),1);
+      dataObjectUpdated();
+      console.log(data);
     }
     else{
       list.removeChild(item);
+      data.todo.splice(data.todo.indexOf(value),1);
+      dataObjectUpdated();
+      console.log(data);
     }
+
   }
 
   var complete=document.createElement('button');
   complete.classList.add('complete');
   complete.innerHTML=completeSVG;
   complete.onclick=function(){
+    var value = item.innerText;
     var completedList = document.getElementById('completed');
     list.removeChild(item);
     completedList.appendChild(item);
+    data.todo.splice(data.todo.indexOf(value), 1);
+    data.completed.push(value);
+    dataObjectUpdated();
   }
 
   buttons.appendChild(remove);
@@ -46,7 +80,16 @@ document.getElementById('add').onclick= function (){
    var value=document.getElementById('item').value;
    console.log(value);
    if (value) {
+     data.todo.push(value);
+     console.log(data);
      addItemTodo(value);
      document.getElementById('item').value='';
    }
  }
+ document.getElementById('item').onkeypress = function (e) {
+  var value = this.value;
+  if (e.code === 'Enter' && value) {
+    addItemTodo(value);
+    this.value='';
+  }
+};

@@ -190,7 +190,7 @@ ul.todo li .buttons button.complete svg{
   border: 1.5px solid #4498EC;
 }
 ul.todo#completed li .buttons button.complete svg .fill{
-  fill:#fff;
+  fill:#fff;in
 }
 ul.todo#completed li .buttons button.complete svg {
   background: #4498EC;
@@ -203,6 +203,10 @@ ul.todo:not(#completed) li .buttons button.complete:hover svg .fill{
   fill:#fff;
 }
 ul.todo:not(#completed) li .buttons button.complete:hover svg {
-  background: #4498EC;
+  background: #4498EC;in
   border: 0px;
+}
+
+#completed{
+  margin-top: 50px;
 }
