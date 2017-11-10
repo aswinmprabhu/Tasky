@@ -84,6 +84,7 @@ document.getElementById('add').onclick= function (){
      console.log(data);
      addItemTodo(value);
      document.getElementById('item').value='';
+     dataObjectUpdated();
    }
  }
  document.getElementById('item').onkeypress = function (e) {
@@ -91,5 +92,6 @@ document.getElementById('add').onclick= function (){
   if (e.code === 'Enter' && value) {
     addItemTodo(value);
     this.value='';
+    dataObjectUpdated();
   }
 };
