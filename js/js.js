@@ -3,7 +3,7 @@ var completeSVG = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:x
 
 
 var data = (localStorage.getItem('todoList')) ? JSON.parse(localStorage.getItem('todoList')):{
-  todo: ["This is a model task | Press the trash button to delete this | Press the done button to mark it as done"],
+  todo: ["This is a sample task | Press the trash button to delete this | Press the done button to mark it as done"],
   completed: []
 };
 console.log(data);
